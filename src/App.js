@@ -1,10 +1,15 @@
 //import logo from './logo.svg';
-import './App.css';
+//import './App.css';
+import "./assets/scss/app.scss"
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Profile from './pages/Profile';
+
+import Header from './components/Header';
+
 
 const USERS = [
   {id:1, fullName:"Sara Anderson", age:12},
@@ -35,10 +40,12 @@ function App() {
 
   return(
     <div>
+      <Header/>
       <BrowserRouter>
         <Routes>
+          <Route path='/profile/:userId' element={<Profile/>} />
           <Route path='/home' element={<Home/>} />
-          <Route path='/Login' element={<Login/>} />
+          <Route path='/login' element={<Login/>} />
           <Route path='' element={<Navigate to="/home" replace={true}/>} />
         </Routes>
       </BrowserRouter>
