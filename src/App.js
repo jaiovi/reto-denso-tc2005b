@@ -1,6 +1,10 @@
 //import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Login from './pages/Login';
 
 const USERS = [
   {id:1, fullName:"Sara Anderson", age:12},
@@ -11,53 +15,35 @@ const USERS = [
 function App() {
   const[userName, setUserName]=useState("");//se inicializa string vacio
   const[users, setUsers]=useState([]);//array vacio
-
-  //SUMADOR
   const[numero, setNumero] = useState(1);
+  const[loading, setLoading] = useState(false);
 
   //creamos funcion para mandar a llamar usar 1
   const sumarUno = () =>{
     setNumero(numero + 1);
     console.log(numero);
   }
-  //setTimeout(()=>
   useEffect(()=>{
-    setUserName("LUKE")
-    setUsers(USERS)
-  },[userName])
+    //OJO AQUI 8 Marzo añadir setLoading
+    setLoading(true);
+    setUserName("LUKE");
+    setTimeout(()=>{
+      setUsers(USERS);
+      setLoading(false);
+    },3000);
+  },[]);
 
   return(
-    //html, recuerda poner corchetes numero
-    <div className="App">
-      <h1>{numero}</h1>
-      <button onClick={sumarUno}>Sumar 1</button>
-
-      {
-      users.map((user)=>{
-        return <div>{user.fullName}</div>
-      })
-      }
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/home' element={<Home/>} />
+          <Route path='/Login' element={<Login/>} />
+          <Route path='' element={<Navigate to="/home" replace={true}/>} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  )
-
-  /* return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  ); */
+  );
 }
 
 export default App;
