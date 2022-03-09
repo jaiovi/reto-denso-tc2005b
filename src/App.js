@@ -40,8 +40,8 @@ function App() {
 
   return(
     <div>
-      <Header/>
       <BrowserRouter>
+        <Header/>
         <Routes>
           <Route path='/profile/:userId' element={<Profile/>} />
           <Route path='/home' element={<Home/>} />
