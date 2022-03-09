@@ -9,7 +9,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 
 import Header from './components/Header';
-
+import OffCanvas from "./components/OffCanvas";
 
 const USERS = [
   {id:1, fullName:"Sara Anderson", age:12},
@@ -42,6 +42,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Header/>
+        <OffCanvas/>
         <Routes>
           <Route path='/profile/:userId' element={<Profile/>} />
           <Route path='/home' element={<Home/>} />

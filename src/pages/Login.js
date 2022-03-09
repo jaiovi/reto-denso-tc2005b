@@ -1,6 +1,8 @@
 import Button from "../components/Button";
+import Input from "../components/Input";
+import React, {useRef} from "react";
 
-function Login(){
+function Login()/*{
     //const [username, setUsername] = useState()
     const iniciarSesion=() =>{
         console.log("Iniciando sesion")
@@ -9,8 +11,27 @@ function Login(){
         <div>
             <h1>Login</h1>
             <Button onClick={iniciarSesion} color={"$green"}>Login</Button>
+            {username}
+            <input onChange={onChangeUsername}></input>
+        </div>
+    )
+}*/
+{
+    const inputUsername = useRef();
+    const inputPass = useRef();
+    const mostrar = () =>{
+        console.log("username: ",inputUsername.current.getValue());
+        console.log("password: ",inputPass.current.getValue());
+    }
+    return (
+        <div>
+        
+            <h1>Login</h1>
+            <Input label="Escrbe tu nombre" ref={inputUsername} />
+            <Input label="Escrbe tu contrasena" ref={inputPass} />
+            <Button onClick={mostrar}>Mostrar input</Button>
         </div>
     )
 }
-
+//
 export default Login

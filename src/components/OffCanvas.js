@@ -1,33 +1,54 @@
-import React, { useEffect } from "react";
-import * as bootstrap from bootstrap;
+import React, { useEffect, useImperativeHandle, useState } from "react";
+import * as bootstrap  from "bootstrap";
 
-let offcanvasId=0;
+let offcanvasId = 0
 
-function OffCanvas(props){
-    const [id,setId] = useState(0)
+function OffcanvasEl(props, ref){
+
+
+    const [id, setId] = useState(0)
+
     useEffect(()=>{
-        offcanvasId=offcanvasId+1;
-        setId("offcanvasid-"+offcanvasId);
-        const elemnt = document.getElementById(id);
-        console.log(elemnt);
-        bootstrap.OffCanvas.getOrCreateInstance(elemnt);
-    })
+        offcanvasId = offcanvasId + 1
+        setId("offcanvasid-"+offcanvasId)
+        // var offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'))
+        // var offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
+        //   return bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl)
+        // })
 
-    //Habilitar elemento. Nos permite abris offcanvas para habilitarlo y añadir funcionalidad adicional. Necesito ident
+        const elemnt = document.getElementById(id)
+        console.log(elemnt)
+        bootstrap.Offcanvas.getOrCreateInstance(elemnt)
+  
+
+    },[])
+
+    const toggle = () =>{
+        const elemnt = document.getElementById(id)
+        console.log(elemnt)
+        let oncanvasElement = bootstrap.Offcanvas.getOrCreateInstance(elemnt)
+        oncanvasElement.toggle()
+    }
+
+    useImperativeHandle(ref, ()=>({
+        toggleOffcanvas: toggle
+    }))    
+
     return (
-        <React.Fragment>
-            <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">Toggle top offcanvas</button>
+        <div>
             
-            <div className="offcanvas offcanvas-top" tabIndex="-1" id="{id}" aria-labelledby="offcanvasTopLabel">
-            <div className="offcanvas-header">
-                <h5 id="offcanvasTopLabel">Offcanvas top</h5>
-                <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <div className={"offcanvas offcanvas-"+props.position} tabIndex="-1" id={id} aria-labelledby="offcanvasTopLabel">
+                <div className="offcanvas-header">
+                    <h5 id="offcanvasTopLabel">{props.title}</h5>
+                    <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div className="offcanvas-body">
+                    {props.children}
+                </div>
             </div>
-            <div className="offcanvas-body">
-                ...
-            </div>
-            </div>
-        </React.Fragment>
-    );
+        </div>
+    )
 }
-export default OffCanvas;
+
+const Offcanvas = React.forwardRef(OffcanvasEl)
+export default Offcanvas;
