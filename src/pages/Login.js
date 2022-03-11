@@ -1,5 +1,6 @@
 import Button from "../components/Button";
 import Input from "../components/Input";
+import OffCanvas from "../components/OffCanvas";
 import React, {useRef} from "react";
 
 function Login()/*{
@@ -29,7 +30,7 @@ function Login()/*{
             <h1>Login</h1>
             <Input label="Escrbe tu nombre" ref={inputUsername} />
             <Input label="Escrbe tu contrasena" ref={inputPass} />
-            <Button onClick={mostrar}>Mostrar input</Button>
+            <Button onClick={mostrar} color={"success"}>Mostrar input</Button>
         </div>
     )
 }
